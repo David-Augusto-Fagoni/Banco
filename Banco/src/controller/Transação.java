@@ -5,10 +5,13 @@ import java.util.concurrent.Semaphore;
 public class Transação extends Thread{
 	
 	private int ID;
-	private Semaphore semaforo;
-	public Transação (int ID, Semaphore semaforo) {
+	private Semaphore Saque;
+	private Semaphore Deposito;
+	
+	public Transação (int ID, Semaphore semaforo, Semaphore Deposito) {
 		this.ID = ID;
-		this.semaforo = semaforo;
+		this.Saque = semaforo;
+		this.Deposito = Deposito;
 	}
 	public void run () {
 		int Saldo = (int) (Math.random()*900)+450;
@@ -22,24 +25,24 @@ public class Transação extends Thread{
 	}
 	public void Saque(int saldo, int transação) {
 		try {
-			semaforo.acquire();
+			Saque.acquire();
 			System.out.println("A conta "+ID+" esta fazendo um saque de "+transação+"$, Dixando seu antigo saldo de "+saldo+"$ igual a "+(saldo-transação)+"$.");
 			sleep(194);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally {
-			semaforo.release();
+			Saque.release();
 		}
 	}
 	public void Deposito(int saldo, int transação) {
 		try {
-			semaforo.acquire();
+			Deposito.acquire();
 			System.out.println("A conta "+ID+" esta fazendo um Deposito de "+transação+"$, Dixando seu antigo saldo de "+saldo+"$ igual a "+(saldo+transação)+"$.");
 			sleep(194);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally {
-			semaforo.release();
+			Deposito.release();
 		}
 	}
 }

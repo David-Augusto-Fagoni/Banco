@@ -5,9 +5,10 @@ import controller.Transação;
 
 public class Sistema {
 	public static void main(String args[]) {
-		Semaphore Sema = new Semaphore(2);
+		Semaphore Saque = new Semaphore(2);
+		Semaphore Deposito = new Semaphore(2);
 		for (int J=0;J<20;J++) {
-			Transação T = new Transação(J,Sema);
+			Transação T = new Transação(J,Saque,Deposito);
 			T.run();
 		}
 	}
