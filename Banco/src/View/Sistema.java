@@ -9,7 +9,7 @@ public class Sistema {
 		Semaphore Deposito = new Semaphore(2);
 		for (int J=0;J<20;J++) {
 			Transação T = new Transação(J,Saque,Deposito);
-			T.start();;
+			T.start();
 		}
 	}
 }
